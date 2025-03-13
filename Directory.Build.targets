@@ -1,0 +1,13 @@
+<Project>
+  <Target Name="PrintBuildInfo" BeforeTargets="Build">
+    <Message Text="Building $(MSBuildProjectName) for $(TargetFramework)" Importance="high" />
+  </Target>
+
+  <!-- Copy all dependencies for test projects to ensure they have all required assemblies -->
+  <Target Name="CopyDependencies" AfterTargets="Build" Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+    <ItemGroup>
+      <Dependencies Include="$(OutputPath)*.dll" />
+    </ItemGroup>
+    <Message Text="Ensuring all dependencies are available for $(MSBuildProjectName)" Importance="high" />
+  </Target>
+</Project>

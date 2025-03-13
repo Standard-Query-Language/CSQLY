@@ -32,8 +32,6 @@ public static class SQLYUtils
     /// <returns>Dictionary representing the YAML structure</returns>
     public static IDictionary ParseYaml(string yaml)
     {
-        // This is a placeholder implementation
-        // In a real implementation, this would use a YAML library to parse the string
-        return new Dictionary<string, object>();
+        return SQLYParser.Parse(yaml);
     }
 }

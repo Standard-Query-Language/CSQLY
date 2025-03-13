@@ -5,25 +5,26 @@ echo "Running tests for CSQLY..."
 # Navigate to solution directory
 cd "$(dirname "$0")"
 
-# Force clean the output directories
-find . -name "bin" -type d -exec rm -rf {} +
-find . -name "obj" -type d -exec rm -rf {} +
+# Exit on any error
+set -e
 
-# Recreate directories
-mkdir -p CSQLY/obj CSQLY/bin CSQLY.Tests/obj CSQLY.Tests/bin
+# Clean output directories
+echo "Cleaning output directories..."
+rm -rf CSQLY/bin CSQLY/obj CSQLY.Tests/bin CSQLY.Tests/obj CSQLY.CLI/bin CSQLY.CLI/obj
 
-# Restore packages with explicit projects
-echo "Restoring packages..."
-dotnet restore CSQLY/CSQLY.csproj
-dotnet restore CSQLY.Tests/CSQLY.Tests.csproj
+# Check if solution file exists
+if [ ! -f "CSQLY.sln" ]; then
+    echo "Error: CSQLY.sln not found in current directory"
+    exit 1
+fi
 
-# Build the projects
-echo "Building projects..."
-dotnet build CSQLY/CSQLY.csproj --configuration Release
-dotnet build CSQLY.Tests/CSQLY.Tests.csproj --configuration Release
+# Restore and build the solution
+echo "Restoring and building solution..."
+dotnet restore --verbosity minimal
+dotnet build --configuration Release --verbosity minimal
 
-# Run tests
+# Run tests with verbose output
 echo "Running tests..."
-dotnet test CSQLY.Tests/CSQLY.Tests.csproj --configuration Release --verbosity normal
+dotnet test CSQLY.Tests/CSQLY.Tests.csproj --configuration Release --no-build --verbosity normal
 
 echo "Tests completed."

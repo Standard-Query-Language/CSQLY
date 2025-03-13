@@ -10,8 +10,25 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>NU1701</NoWarn>
+    <PackageId>CSQLY</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>CSQLY Team</Authors>
+    <Description>A simplified query language for multiple databases using YAML syntax</Description>
+    <PackageTags>sql;yaml;database;query</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Standard-Query-Language/CSQLY</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Standard-Query-Language/CSQLY.git</RepositoryUrl>
   </PropertyGroup>
 
-  <!-- Keep the rest of the file the same -->
+  <!-- Optional: Add references to database providers that you want to support out of the box -->
+  <!--
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
+    <PackageReference Include="Npgsql" Version="8.0.2" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.130" />
+  </ItemGroup>
+  -->
 
 </Project>
