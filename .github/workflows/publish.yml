@@ -21,6 +21,13 @@ jobs:
       with:
           dotnet-version: 9.0.201
 
+    - name: Install GitVersion
+      run: dotnet tool install --global GitVersion.Tool
+
+    - name: Determine version
+      id: gitversion
+      run: gitversion /output json /showvariable FullSemVer
+
     - name: Restore dependencies
       run: dotnet restore
 
@@ -31,10 +38,10 @@ jobs:
       run: dotnet test --no-build --configuration Release --verbosity normal
 
     - name: Pack CSQLY
-      run: dotnet pack CSQLY/CSQLY.csproj --no-build --configuration Release --output nuget-packages
+      run: dotnet pack CSQLY/CSQLY.csproj --no-build --configuration Release --output nuget-packages /p:PackageVersion=${{ steps.gitversion.outputs.FullSemVer }}
 
     - name: Pack CSQLY.CLI
-      run: dotnet pack CSQLY.CLI/CSQLY.CLI.csproj --no-build --configuration Release --output nuget-packages
+      run: dotnet pack CSQLY.CLI/CSQLY.CLI.csproj --no-build --configuration Release --output nuget-packages /p:PackageVersion=${{ steps.gitversion.outputs.FullSemVer }}
 
     - name: Publish NuGet package
       run: |
