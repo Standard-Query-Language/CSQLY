@@ -16,9 +16,6 @@ jobs:
       with:
         fetch-depth: 0 # Required for GitVersion
 
-    - name: Ensure repository is not shallow
-      run: git fetch --prune --unshallow
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
