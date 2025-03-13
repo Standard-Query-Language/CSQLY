@@ -1,0 +1,62 @@
+remote_theme: pages-themes/architect@v0.2.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-minifier
+  - jekyll-optional-front-matter
+  - jekyll-relative-links
+
+# Site settings
+title: "CSQLY - C# Standard Query Language | SQL with YAML Syntax"
+tagline: Simplify database interactions across SQLite, MySQL, PostgreSQL, Oracle, MS SQL Server
+description: CSQLY is a C# nuget library that standardizes SQL querying with YAML syntax, making database operations consistent across multiple database engines
+author: Standard Query Language
+lang: en_US
+show_downloads: true
+url: https://standard-query-language.github.io
+baseurl: /CSQLY
+
+# Markdown processing
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+
+# Convert markdown files to HTML
+optional_front_matter:
+  remove_originals: false
+relative_links:
+  enabled: true
+  collections: true
+
+# SEO settings
+social:
+  name: pySQLY
+  links:
+    - https://github.com/Standard-Query-Language/CSQLY
+    - https://standard-query-language.github.io/CSQLY/
+
+# Theme customization
+colors:
+  header: "#2E7BCF"
+  gradient_top: "#2E7BCF"
+  gradient_bottom: "#2A6DA9"
+  link: "#2E7BCF"
+  section_headings: "#2E7BCF"
+
+# Navigation
+nav:
+  - title: GitHub
+    url: https://github.com/Standard-Query-Language/CSQLY
+
+# Jekyll Minifier settings
+jekyll-minifier:
+  compress_css: true
+  compress_javascript: true
+  compress_json: true
+  compress_html: true
+  exclude: ['*.xml', '*.txt']
+
+# Keywords for SEO
+keywords: dotnet, c, csharp, nuget, sql, yaml, database, query language, sqlite, mysql, postgresql, oracle, sql server
