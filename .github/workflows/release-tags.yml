@@ -65,3 +65,10 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.TAG_TOKEN }}
+
+      - name: Publish NuGet packages
+        run: |
+          for f in ./packages/*.nupkg
+          do
+            dotnet nuget push "$f" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done
