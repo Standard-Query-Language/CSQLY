@@ -9,6 +9,17 @@
     <RootNamespace>CSQLY.CLI</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>NU1701</NoWarn>
+    <PackageId>CSQLY.CLI</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>CSQLY Team</Authors>
+    <Description>Command-line interface for CSQLY, a simplified query language for databases using YAML</Description>
+    <PackageTags>sql;yaml;database;query;cli</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Standard-Query-Language/CSQLY</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Standard-Query-Language/CSQLY.git</RepositoryUrl>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>csqly</ToolCommandName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +28,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

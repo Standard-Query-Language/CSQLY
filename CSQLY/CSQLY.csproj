@@ -18,7 +18,12 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Standard-Query-Language/CSQLY</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Standard-Query-Language/CSQLY.git</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <!-- Optional: Add references to database providers that you want to support out of the box -->
   <!--
