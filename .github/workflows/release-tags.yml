@@ -3,7 +3,7 @@ name: Release on Tags
 on:
   push:
     tags:
-      - '*'  # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'v*'  # Push events to matching v*, i.e. v1.0, v20.15.10
 
 permissions:
   contents: write
@@ -18,30 +18,40 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          python-version: 3.x
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools wheel twine
+          dotnet-version: 9.0.201
 
       - name: Extract tag name
         id: tag
         run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-      - name: Update version in setup.py
+      - name: Update version in csproj files
         run: |
           # Remove 'v' prefix if present
           VERSION="${{ steps.tag.outputs.TAG_NAME }}"
           VERSION=${VERSION#v}
-          sed -i "s/version=['\"][^'\"]*['\"]/version='$VERSION'/g" setup.py
 
-      - name: Build and package
+          # Update version in CSQLY project
+          sed -i "s/<Version>.*<\/Version>/<Version>$VERSION<\/Version>/g" CSQLY/CSQLY.csproj
+
+          # Update version in CLI project
+          sed -i "s/<Version>.*<\/Version>/<Version>$VERSION<\/Version>/g" CSQLY.CLI/CSQLY.CLI.csproj || true
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build
+
+      - name: Pack NuGet packages
         run: |
-          python setup.py sdist bdist_wheel
+          dotnet pack CSQLY/CSQLY.csproj --configuration Release --no-build --output packages
+          dotnet pack CSQLY.CLI/CSQLY.CLI.csproj --configuration Release --no-build --output packages || true
 
       - name: Create Release
         id: create_release
@@ -51,7 +61,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            dist/*
+            packages/*.nupkg
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.TAG_TOKEN }}
