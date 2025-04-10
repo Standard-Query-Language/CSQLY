@@ -21,7 +21,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.201
+          dotnet-version: 9.0.203
 
       - name: Extract tag name
         id: tag
